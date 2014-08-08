@@ -47,4 +47,13 @@ describe 'Expense' do
       expect(Expense.all[0]).to eq new_expense
     end
   end
+
+  describe '.find_by_id' do
+    it 'finds an expense by id' do
+      new_expense = Expense.new({ :date=> '2014-05-11', :amount=> 521, :note=> 'Beer' })
+      new_expense.save
+      id = new_expense.id
+      expect(Expense.find_by_id(id)).to eq new_expense
+    end
+  end
 end

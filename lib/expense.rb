@@ -25,6 +25,21 @@ class Expense
     expenses
   end
 
+  def self.find_by_id num
+    expense = nil
+    results = DB.exec("SELECT * FROM expenses WHERE id = #{num}")
+    results.each do |result|
+      attributes = {
+        :id => result['id'].to_i,
+        :date => result['date'],
+        :amount => result['amount'].to_i,
+        :note => result['note']
+      }
+      expense = Expense.new(attributes)
+    end
+    expense
+  end
+
   def save
     result = DB.exec("INSERT INTO expenses (date, amount, note) VALUES ('#{date}', #{amount}, '#{note}') RETURNING id;")
     @id = result.first['id'].to_i
