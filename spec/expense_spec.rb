@@ -56,4 +56,15 @@ describe 'Expense' do
       expect(Expense.find_by_id(id)).to eq new_expense
     end
   end
+
+  describe '.find_all_by_date' do
+    it 'finds expenses for a given date' do
+      new_expense1 = Expense.new({ :date=> '2014-05-11', :amount=> 521, :note=> 'Beer' })
+      new_expense1.save
+      new_expense2 = Expense.new({ :date=> '2013-04-08', :amount=> 521, :note=> 'Beer' })
+      new_expense2.save
+      date1 = new_expense1.date
+      expect(Expense.find_all_by_date(date1)).to eq [new_expense1]
+    end
+  end
 end

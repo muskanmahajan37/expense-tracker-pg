@@ -25,9 +25,24 @@ class Expense
     expenses
   end
 
+  def self.find_all_by_date date_arg
+    expenses = []
+    results = DB.exec("SELECT * FROM expenses WHERE date = '#{date_arg}';")
+    results.each do |result|
+      attributes = {
+        :id => result['id'].to_i,
+        :date => result['date'],
+        :amount => result['amount'].to_i,
+        :note => result['note']
+      }
+      expenses << Expense.new(attributes)
+    end
+    expenses
+  end
+
   def self.find_by_id num
     expense = nil
-    results = DB.exec("SELECT * FROM expenses WHERE id = #{num}")
+    results = DB.exec("SELECT * FROM expenses WHERE id = #{num};")
     results.each do |result|
       attributes = {
         :id => result['id'].to_i,
