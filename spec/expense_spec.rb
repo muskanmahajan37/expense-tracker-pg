@@ -30,6 +30,14 @@ describe 'Expense' do
     it 'start as an empty array' do
       expect(Expense.all).to eq []
     end
+
+    it 'lists all the expenses' do
+      new_expense1 = Expense.new({ :date=> '2014-05-11', :amount=> 521, :note=> 'Beer' })
+      new_expense1.save
+      new_expense2 = Expense.new({ :date=> '2014-05-12', :amount=> 21, :note=> 'Coffee' })
+      new_expense2.save
+      expect(Expense.all).to eq [new_expense1, new_expense2]
+    end
   end
 
   describe 'save' do
