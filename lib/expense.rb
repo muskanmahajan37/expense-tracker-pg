@@ -8,6 +8,7 @@ class Expense
     @date = attributes[:date] ? Time.parse(attributes[:date]) : nil
     @amount = attributes[:amount].to_i
     @note = attributes[:note]
+    # @category = []
   end
 
   def self.all
@@ -63,16 +64,37 @@ class Expense
     grand_total
   end
 
+  def add_category num
+    expense_id = @id
+    category_id = num
+    DB.exec("INSERT INTO expenses_categories (expense_id, category_id) VALUES (#{expense_id}, #{category_id});")
+  end
+
+  def show_categories num
+    categories = []
+    results = DB.exec("SELECT * FROM expenses_categories WHERE expense_id = #{num};")
+    results.each do |result|
+      attributes = {
+        :id => result['id'].to_i,
+        :category_id => result['category_id'].to_i,
+        :expense_id => result['expense_id'].to_i
+      }
+      categories = Category.new(attributes)
+    end
+    categories
+  end
+
   def save
     result = DB.exec("INSERT INTO expenses (date, amount, note) VALUES ('#{date}', #{amount}, '#{note}') RETURNING id;")
     @id = result.first['id'].to_i
   end
 
   def == arg
-    self.id == arg.id &&
-    self.date == arg.date &&
-    self.amount == arg.amount &&
-    self.note == arg.note
+    if arg.class == self.class
+      self.id == arg.id
+    else
+      false
+    end
   end
 
 end

@@ -39,6 +39,10 @@ class Category
   end
 
   def == arg
-    self.id == arg.id && self.name == arg.name
+    if arg.class == self.class
+      self.id == arg.id && self.name == arg.name
+    else
+      false
+    end
   end
 end
