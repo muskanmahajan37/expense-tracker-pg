@@ -1,6 +1,6 @@
 class Expense
 
-
+  attr_reader :date, :amount, :note
 
   def initialize attributes
     @date = attributes[:date]
