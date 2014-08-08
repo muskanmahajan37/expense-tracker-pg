@@ -10,5 +10,6 @@ DB = PG.connect({:dbname => 'make_it_rain_test'})
 RSpec.configure do |config|
   config.before(:each) do
     DB.exec("DELETE FROM expenses *;")
+    DB.exec("DELETE FROM categories *;")
   end
 end
