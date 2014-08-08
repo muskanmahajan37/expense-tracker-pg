@@ -8,4 +8,8 @@ class Expense
     @note = attributes[:note]
   end
 
+  def self.all
+    expenses = []
+  end
+
 end

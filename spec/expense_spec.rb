@@ -9,7 +9,7 @@ describe 'Expense' do
     end
   end
 
-  describe 'Expense attributes' do
+  describe 'expense object attributes' do
     it 'lets you read the date' do
       new_expense = Expense.new({ :date=> '2014-05-11' })
       expect(new_expense.date).to eq '2014-05-11'
@@ -23,6 +23,12 @@ describe 'Expense' do
     it 'lets you read the note' do
       new_expense = Expense.new({ :note=> 'Strip club' })
       expect(new_expense.note).to eq 'Strip club'
+    end
+  end
+
+  describe '.all' do
+    it 'start as an empty array' do
+      expect(Expense.all).to eq []
     end
   end
 end
