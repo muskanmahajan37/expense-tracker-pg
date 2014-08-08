@@ -12,7 +12,7 @@ describe 'Expense' do
   describe 'expense object attributes' do
     it 'lets you read the date' do
       new_expense = Expense.new({ :date=> '2014-05-11' })
-      expect(new_expense.date).to eq '2014-05-11'
+      expect(new_expense.date).to eq Time.parse('2014-05-11')
     end
 
     it 'lets you read the amount' do
@@ -29,6 +29,14 @@ describe 'Expense' do
   describe '.all' do
     it 'start as an empty array' do
       expect(Expense.all).to eq []
+    end
+  end
+
+  describe 'save' do
+    it 'saves all expenses' do
+      new_expense = Expense.new({ :date=> '2014-05-11', :amount=> 521, :note=> 'Beer' })
+      new_expense.save
+      expect(Expense.all[0]).to eq new_expense
     end
   end
 end
