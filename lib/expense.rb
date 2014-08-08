@@ -55,6 +55,14 @@ class Expense
     expense
   end
 
+  def self.total_spent
+    grand_total = 0
+    Expense.all.each do |expense|
+      grand_total += expense.amount
+    end
+    grand_total
+  end
+
   def save
     result = DB.exec("INSERT INTO expenses (date, amount, note) VALUES ('#{date}', #{amount}, '#{note}') RETURNING id;")
     @id = result.first['id'].to_i

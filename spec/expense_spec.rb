@@ -67,4 +67,14 @@ describe 'Expense' do
       expect(Expense.find_all_by_date(date1)).to eq [new_expense1]
     end
   end
+
+  describe '.total_spent' do
+    it 'calculates the expenses total' do
+      new_expense1 = Expense.new({ :date=> '2014-05-11', :amount=> 400, :note=> 'Beer' })
+      new_expense1.save
+      new_expense2 = Expense.new({ :date=> '2013-04-08', :amount=> 400, :note=> 'Beer' })
+      new_expense2.save
+      expect(Expense.total_spent).to eq 800
+    end
+  end
 end
